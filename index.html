@@ -1,482 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fiesta - Celebrate Every Moment</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-
-    html {
-      font-size: 16px;
-    }
-
-    body {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-      background-color:thistle;
-      color: #5e005e;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background: whitesmoke;
-      border-bottom: 1px solid #eee;
-      position: relative;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo h1 {
-      font-size: 1.5rem;
-      color: darkblue;
-      margin-right: 10px;
-    }
-
-    .logo span {
-      font-size: 0.9rem;
-      color: darkblue;
-    }
-
-    nav {
-      display: flex;
-      gap: 15px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #800080;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .bar {
-      height: 3px;
-      width: 25px;
-      background-color: #800080;
-      margin: 4px 0;
-      transition: 0.4s;
-    }
-
-    .nav-links {
-      display: flex;
-    }
-
-    .page {
-      display: none;
-      padding: 20px;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .image-slider {
-      position: relative;
-      max-width: 100%;
-      height: auto;
-      margin: auto;
-      overflow: hidden;
-      aspect-ratio: 4 / 3;
-    }
-
-    .image-slider img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transition: opacity 1s ease-in-out;
-      object-fit: cover;
-    }
-
-    .hidden {
-      opacity: 0;
-    }
-
-    .intro {
-      text-align: center;
-      max-width: 90%;
-      margin: 30px auto;
-      padding: 10px;
-    }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .left, .right {
-      flex: 1 1 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin: 10px 0;
-    }
-
-    .corporate, .social {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #8a2be2;
-    }
-
-    .events {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #d32f2f;
-    }
-
-    .title {
-      font-size: 1.5rem;
-      background: linear-gradient(to right, red, yellow);
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 20px;
-    }
-
-    .word-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px;
-    }
-
-    .word {
-      font-size: 1rem;
-      font-weight: bold;
-      padding: 8px;
-      border-radius: 6px;
-    }
-
-    .word:nth-child(odd) {
-      background-color: #ff6347;
-      color: white;
-    }
-
-    .word:nth-child(even) {
-      background-color: #00bfff;
-      color: white;
-    }
-
-    .services-section {
-      text-align: center;
-      padding: 40px 10px;
-    }
-
-    .services-section h2 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(to right, #b10063, #ffcc00);
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 30px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .service-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .service-item img {
-      width: 70px;
-      height: 70px;
-      margin-bottom: 10px;
-      object-fit: contain;
-    }
-
-    .booking-form {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px 20px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      width: 95%;
-      max-width: 500px;
-      color: white;
-      margin: auto;
-    }
-
-    .overlay {
-      background: url('wp7488366.webp') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        right: 10px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        padding: 10px;
-        width: 150px;
-      }
-      .booking-form button:hover {
-      background-color: #e05500;
-    }
-    .booking-form input,
-    .booking-form textarea,
-    .booking-form select {
-      font-size: 1rem;
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 30px;
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
-
-    .booking-form input::placeholder,
-    .booking-form textarea::placeholder {
-      color: #ddd;
-    }
-
-    .booking-form option {
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-    }
-
-    .booking-form button {
-      width: 100%;
-      padding: 15px;
-      background-color: #ff6600;
-      border: none;
-      border-radius: 30px;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-      .nav-links.show {
-        display: flex;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #d9a7c7, #fffcdc);
+        }
+        .container {
+            display: flex;
+            width: 60%;
+            background: #f4e1e1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .left {
+            width: 50%;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .left img {
+            width: 100%;
+        }
+        .right {
+            width: 50%;
+            padding: 40px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #7a3b3b;
+        }
+        .role-selection {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .role-selection label {
+            margin: 0 10px;
+        }
+        .role-selection input {
+            margin-right: 5px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-btn {
+            background: #7a3b3b;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .login-btn:hover {
+            background: #5c2e2e;
+        }
+        .forgot-pass {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #7a3b3b;
+        }
+        .forgot-pass:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <h1><img src="Modern Lettermark with Microphone Logo.png" width="60" height="60" alt="Logo"></h1>
-      <span>Celebrate every moment</span>
-    </div>
-    <div class="hamburger" onclick="toggleMenu()">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-    <nav class="nav-links" id="navLinks">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('about')">About</a>
-      <a onclick="showPage('services')">Services</a>
-      <a onclick="showPage('contact')">Contact</a>
-    </nav>
-  </header>
 
-  <!-- Home Page -->
-  <section id="home" class="page active">
-    <div class="image-slider">
-      <img src="wp7488366.webp" id="img1">
-      <img src="wp7488460.webp" id="img2" class="hidden">
-    </div>
-    <div class="intro">
-      <p>
-        Your one-stop destination for all event management needs.<br> At Fiesta, we understand that every event is unique and special.<br> Whether it's a corporate conference, a grand wedding, <br>a milestone celebration, or a social gathering <br>— we’re here to make your dream event come true within your budget.
-      </p>
-    </div>
-  </section>
-
-  <!-- About Page -->
-  <section id="about" class="page">
     <div class="container">
-      <div class="left">
-        <h1 class="corporate">Corporate</h1>
-        <h2 class="events">Events</h2>
-        <h3 class="title">What We Do</h3>
-        <div class="word-cloud">
-
-          <span class="word">Inauguration</span>
-          
-          <span class="word">Family Day</span>
-          <span class="word">Annual Day</span>
-          <span class="word">Award Ceremony</span>
-          <span class="word">Product Launch</span>
-          <span class="word">Cultural Day</span>
-         
+        <div class="left">
+            <img src="https://cdn.pixabay.com/photo/2017/01/31/17/44/agenda-2029992_1280.png" alt="Attendance Illustration">
         </div>
-      </div>
-      <div class="right">
-        <h1 class="social">Social</h1>
-        <h2 class="events">Events</h2>
-        <h3 class="title">Services We Provide</h3>
-        <div class="word-cloud">
-          <span class="word">Baby Shower</span>
-          <span class="word">Engagement</span>
-          <span class="word">Wedding</span>
-          <span class="word">Birthday</span>
-          <span class="word">Sangeet</span>
-          <span class="word">Bachelorette</span>
-          <span class="word">House Warming</span>
-          <span class="word">Haldi</span>
-          <span class="word">Naming Ceremony</span>
-          <span class="word">Reception</span>
+        <div class="right">
+            <h2>Welcome to Attendo</h2>
+
+            <div class="role-selection">
+                <label><input type="radio" name="role" value="admin" checked> Admin</label>
+                <label><input type="radio" name="role" value="faculty"> Faculty</label>
+                <label><input type="radio" name="role" value="student"> Student</label>
+            </div>
+
+            <input type="text" id="username" placeholder="Enter username or email">
+            <input type="password" id="password" placeholder="Enter password">
+
+            <button class="login-btn" onclick="login()">LOGIN</button>
+            <a href="forgot_password.html" class="forgot-pass">Forgot password?</a>
         </div>
-      </div>
     </div>
-  </section>
 
-  <!-- Services Page -->
-  <section id="services" class="page">
-    <div class="services-section">
-      <h2>Services we <strong style="color: #ffcc00;">Provide</strong></h2>
-      <div class="services-grid">
-        <div class="service-item"><img src="Screenshot 2025-05-05 215621.png" alt="Concept Planning" /><h3>Concept Planning</h3><p>Share your ideas, choose a theme and set the foundation.</p></div>
-        <div class="service-item"><img src="Screenshot 2025-05-05 215630.png" alt="Venue Selection" /><h3>Venue Selection</h3><p>Find out the right space within your budget.</p></div>
-        <div class="service-item"><img src="Screenshot 2025-05-05 215726.png" alt="Logistic Support" /><h3>Logistic Support</h3><p>We handle all the logistics, ensuring seamless support for your event.</p></div>
-        <div class="service-item"><img src="Screenshot 2025-05-05 215729.png" alt="Decoration" /><h3>Decoration</h3><p>Creative and attractive quality decor matching with your theme and event.</p></div>
-        <div class="service-item"><img src="Screenshot 2025-05-05 215646.png" alt="Food & Beverage" /><h3>Food & Beverage</h3><p>Delicious culinary experience with diverse range of cuisines for both buffet and à la carte.</p></div>
-        <div class="service-item"><img src="Screenshot 2025-05-05 215651.png" alt="Entertainment" /><h3>Entertainment</h3><p>From DJs and traditional performance to engaging fun activities we have it all.</p></div>
-        <div class="service-item"><img src="Screenshot 2025-05-05 215656.png" alt="Photography/ Videography" /><h3>Photography/ Videography</h3><p>High quality traditional and modern shots are taken to cover the entire event.</p></div>
-      </div>
-    </div>
-  </section>
+    <script>
+        async function login() {
+            const role = document.querySelector('input[name="role"]:checked').value;
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
 
-  <!-- Contact Page -->
-  <section id="contact" class="page">
-    <div class="overlay">
-      <form class="booking-form" id="eventForm">
-        <h2>Book Your AP Event</h2>
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="tel" name="phone" placeholder="Phone Number" required>
-        <textarea name="address" placeholder="Your Address" rows="2" required></textarea>
-        <select name="event" required>
-          <option value="" disabled selected>Select Event Type</option>
-          <option value="Marriage">Marriage</option>
-          <option value="Engagement">Engagement</option>
-          <option value="Birthday">Birthday</option>
-        </select>
-        <input type="date" name="eventDate" required>
-        <button type="submit">BOOK NOW</button>
+            if (!username || !password) {
+                alert("Please enter both username and password.");
+                return;
+            }
 
-      </form>
-    </div>
-  </section>
+            try {
+                const response = await fetch("http://localhost:5000/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password, role })
+                });
 
-  <script>
-      document.getElementById('eventForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const form = this;
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const eventDate = new Date(form.eventDate.value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    eventDate.setHours(0, 0, 0, 0);
+                const data = await response.json();
 
-    if (!/^[A-Za-z\s]+$/.test(name)) {
-      alert("Please enter a valid name (letters only).");
-      return;
-    }
+                if (data.status === "success") {
+                    alert("Login successful!");
+                    window.location.href = data.redirect;
+                } else {
+                    alert(data.message || "Invalid username or password.");
+                }
+            } catch (error) {
+                alert("Server error. Please try again later.");
+                console.error(error);
+            }
+        }
+    </script>
 
-    if (!/^\d{10}$/.test(phone)) {
-      alert("Please enter a valid 10-digit phone number.");
-      return;
-    }
-
-    if (eventDate < today) {
-      alert("Event date must be today or a future date.");
-      return;
-    }
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    fetch('http://localhost:5000/api/book', { // Make sure to use full URL
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-    .then(res => {
-      if (!res.ok) throw new Error("Network response was not ok");
-      return res.text();
-    })
-    .then(msg => {
-      alert(msg || "Event booked successfully!");
-      form.reset();
-    })
-    .catch(err => {
-      console.error("Booking failed:", err);
-      alert("Failed to book event.");
-    });
-  });
-
-  document.getElementById('eventForm').eventDate.min = new Date().toISOString().split("T")[0];
-
-    const pages = document.querySelectorAll('.page');
-
-    function showPage(id) {
-      pages.forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.getElementById('navLinks').classList.remove('show');
-     
-    }
-
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('show');
-    }
-
-    // Simple image slider
-    let current = 0;
-    const images = document.querySelectorAll('.image-slider img');
-
-    setInterval(() => {
-      images[current].classList.add('hidden');
-      current = (current + 1) % images.length;
-      images[current].classList.remove('hidden');
-    }, 3000);
-  </script>
 </body>
 </html>
